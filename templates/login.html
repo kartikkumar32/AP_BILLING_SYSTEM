@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Sign in{% endblock %}
+{% block content %}<div class="row justify-content-center align-items-center" style="min-height:65vh"><div class="col-sm-10 col-md-6 col-lg-4"><div class="card p-4 p-lg-5">
+<div class="text-center mb-4"><div class="badge badge-gold mb-3">APCS · BUSINESS PORTAL</div><h1 class="h3 fw-bold">Welcome back</h1><p class="text-secondary">Sign in to manage billing and catering records.</p></div>
+<form method="post"><div class="mb-3"><label class="form-label">Username</label><input name="username" class="form-control" autocomplete="username" required autofocus></div><div class="mb-4"><label class="form-label">Password</label><input name="password" type="password" class="form-control" autocomplete="current-password" required></div><button class="btn btn-gold w-100 py-2">Sign in</button></form>
+</div></div></div>{% endblock %}

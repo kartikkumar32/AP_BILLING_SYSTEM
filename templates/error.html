@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}{{ code }}{% endblock %}{% block content %}<div class="card p-5 text-center mx-auto" style="max-width:620px"><h1 class="display-4 fw-bold">{{ code }}</h1><p>{{ message }}</p><a class="btn btn-gold" href="{{ url_for('dashboard') }}">Return to dashboard</a></div>{% endblock %}

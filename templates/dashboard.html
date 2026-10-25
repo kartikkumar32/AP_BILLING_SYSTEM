@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><div><div class="small-muted">OVERVIEW</div><h1 class="page-title h2 mb-1">Business dashboard</h1><div class="text-secondary">Billing, collections and operations at a glance.</div></div><a class="btn btn-gold px-4" href="{{ url_for('invoice_new') }}">＋ Create invoice</a></div>
+<div class="row g-3 mb-4">
+{% for label,value in [('Invoices',invoice_count),('Invoice value',sales|money),('Payments received',received|money),('Outstanding balance',pending|money),('Recorded expenses',expense|money)] %}
+<div class="col-6 col-xl"><div class="card p-3 h-100"><div class="small-muted">{{ label }}</div><div class="h4 fw-bold mt-2 mb-0 money">{{ value }}</div></div></div>
+{% endfor %}
+</div>
+<div class="row g-4"><div class="col-lg-8"><div class="card p-3 p-lg-4"><div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 fw-bold mb-0">Recent invoices</h2><a href="{{ url_for('invoices') }}">View all</a></div>
+<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Invoice</th><th>Customer</th><th>Date</th><th>Total</th><th></th></tr></thead><tbody>{% for i in recent %}<tr><td class="fw-semibold">{{ i.invoice_no }}</td><td>{{ i.customer }}</td><td>{{ i.created_at[:10] }}</td><td class="money">{{ i.total_paise|money }}</td><td><a class="btn btn-sm btn-outline-dark" href="{{ url_for('invoice_detail',invoice_id=i.id) }}">Open</a></td></tr>{% else %}<tr><td colspan="5" class="text-center text-secondary py-4">No invoices yet. Create your first invoice.</td></tr>{% endfor %}</tbody></table></div></div></div>
+<div class="col-lg-4"><div class="card p-3 p-lg-4 mb-4"><h2 class="h5 fw-bold">Quick actions</h2><div class="d-grid gap-2"><a class="btn btn-outline-dark" href="{{ url_for('customers') }}">＋ Add customer</a><a class="btn btn-outline-dark" href="{{ url_for('expenses') }}">＋ Record expense</a><a class="btn btn-outline-dark" href="{{ url_for('inventory') }}">Manage inventory</a><a class="btn btn-outline-dark" href="{{ url_for('reports_xlsx') }}">Download Excel report</a></div></div>
+<div class="card p-3 p-lg-4"><h2 class="h5 fw-bold">Low stock alerts</h2>{% for item in lowstock %}<div class="d-flex justify-content-between border-bottom py-2"><span>{{ item.name }}</span><span class="text-danger fw-semibold">{{ item.quantity }} {{ item.unit }}</span></div>{% else %}<p class="text-secondary mb-0">No low-stock items.</p>{% endfor %}</div></div></div>
+{% endblock %}
